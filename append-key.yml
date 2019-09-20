@@ -1,0 +1,16 @@
+---
+ - hosts: all
+   vars:
+     - key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDY7+cvVJ4Ii6oof2LIxVqSx/86fcstcowxVexRf08furdVGnkvWPA51M8pU32wSgIfhQQyGQR9Y8phxT3s5Xvd/F2BQHkN7ccRDOepRFBw4PJ6jjVeNwoqAT85/jVs/cvOS0n3h5b4v7MHjlpUo08LfgdBxiq34HGw0I8thbmhoLf1HGWUK0Ydcz8LGixl0CU0XIQNiFSWX5E9sbne5YhCTPnW6vzdhFVv6SNJemQm9zcMnR9lLoStFYNNnhRkWtxc/mWB2uUw4/b3cwjjfECzyThUD9LsWgeEGWq2CYEsb1AlnyMkziR2oOFldVLCIBrp+ctbDOjDJDqCv8YOG2wAvT7K+4SjHAyI5SL5LAaU9UkLdwveJJgGiQuzc+iWf2f+XenpxIyliddk40PTOhZNc3bckkdgbO8vJE+mzplKJrl2pPKmfCHchM97IOB/V9tQoMs7u7FtRSsUkW6QQ3g87O6wmwGITxl9cdwTQgkt6+9sKYkXbajlApMA+XbO9s0= test'
+   gather_facts: yes
+   remote_user: root
+
+   tasks:
+
+   - name: Append key
+     lineinfile:
+       path: "/home/{{ ansible_user_id }}/.ssh/authorized_keys"
+       regexp: "test$"
+       line: "{{ key }}"
+       state: present
+       backup: yes        
